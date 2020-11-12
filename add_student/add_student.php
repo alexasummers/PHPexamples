@@ -8,12 +8,16 @@ $lname=isset($_POST['lname'])?$_POST['lname']:"";
 $date=isset($_POST['date'])?date_create_from_format('m/d/Y', $_POST['date']):"";
 $dateOfBirth=date_format($date,"Y-m-d");
 $g=isset($_POST['gender'])?$_POST['gender']:"";
-$gender=$g=="male"?1:2;
-
+if ($g == 'male'){
+    $g= 1;}
+elseif($g == 'female'){
+    $g= 2;}
+elseif($g == 'other'){
+    $g= 3;}
 
 /**insert a new record into the student table*/
 $SQL = "INSERT INTO Student(FirstName,LastName,DateOfBirth,Gender) VALUES(";
-$SQL.="'".$fname."', '".$lname."', '".$dateOfBirth."', '".$gender."' )";
+$SQL.="'".$fname."', '".$lname."', '".$dateOfBirth."', '".$g."' )";
 $result = mysqli_query($connection,$SQL);
 
 if (!$result) //if the query fails
